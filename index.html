@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team Availability Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b5e;
+        }
+
+        .user {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7f9fc;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .available {
+            color: green;
+        }
+
+        .unavailable {
+            color: red;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Team Availability Tracker</h1>
+    <p>Check your team members availability</p>
+
+    {% for user in users %}
+
+    <div class="user">
+
+        <div>
+            <h3>{{ user[1] }}</h3>
+
+            {% if user[2] == 1 %}
+                <p class="status available">● Available</p>
+            {% else %}
+                <p class="status unavailable">● Not Available</p>
+            {% endif %}
+        </div>
+
+        <form action="/toggle/{{ user[0] }}" method="POST">
+            <button type="submit">
+                {% if user[2] == 1 %}
+                    Turn OFF
+                {% else %}
+                    Turn ON
+                {% endif %}
+            </button>
+        </form>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
